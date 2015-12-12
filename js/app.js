@@ -1,5 +1,5 @@
-//initialize variables
 'use strict';
+//initialize variables
 var secretNumber, 
 userGuess, 
 pastGuesses = [], 
@@ -8,14 +8,15 @@ guessHtml,
 userFeedback,
 alreadyGuessed,
 $newButton,
-$form ,
+$form,
 $input,
 $feedback,
 $count,
 $guessList;
 
-$(document).ready(pageLoad);
-
+//runs when dom is ready - set up event handlers
+//info box animation
+//assigning variables
  function pageLoad(){
 	
 	/*--- Display information modal box ---*/
@@ -30,29 +31,33 @@ $(document).ready(pageLoad);
   	//fetch dom objects
   	$newButton = $('a.new');
   	$form = $('form');
+    //assign input within user guess function
   	$input = $form.find('#userGuess');
   	$feedback = $('#feedback');
   	$count = $('#count');
   	$guessList = $('#guessList');
 
-    //page load
-    newGame();
     //event handlers
     $form.submit(function(event){
       event.preventDefault();
       getUserGuess();
     });
     $newButton.click(newGame);
+    //start the game
+    newGame();
 }
 
 //new game function
 function newGame(){
-	$form.find('input[type=submit]').css('opacity','1');
-	resetVariables();
+  //show form again if hidden from previous winner function
+	$form.show().find('input[type=submit]').css('opacity','1');
+	$('#userGuess').focus();
+  resetVariables();
 	render();
 	generateNumber();
-  $input.focus();
-  $feedback.hide().fadeIn(900);
+  $feedback.hide().fadeIn(1000);
+  $input.hide().fadeIn(500);
+  $form.show();
 }
 
 //get the user guess
@@ -64,7 +69,7 @@ function getUserGuess(){
 	//focus on input for next guess
 	$input.focus();
 	//ensure valid input
-	if(checkGuess()){return ;}
+	if(isCheckGuessValid()){return ;}
 	//generate feedback
 	generateFeedback();
 	//track the past user guesses
@@ -76,14 +81,14 @@ function getUserGuess(){
 }
 
   	//check for valid input
-  	function checkGuess(){
+  	function isCheckGuessValid(){
   		if(userGuess % 1 !== 0){
   			alert('please input a number');
-  			return true;
+  			return false;
   		}
   		if(userGuess < 0 || userGuess > 101){
   			alert('please choose a number between zero and 100');
-  			return true;
+  			return false;
   		}
   		if(pastGuesses.length > 0){
 			$.each(pastGuesses,function(guess,value){
@@ -93,7 +98,7 @@ function getUserGuess(){
 			}); 
 		}
 		if(alreadyGuessed){
-			alreadyGuessed = false;
+			alreadyGuessed = true;
 			alert('You guessed this number already');
 			return true;
 		}
@@ -139,7 +144,7 @@ function guessCount(){
 	count++;
 }
 
-	//page render function
+//page render function
 function render(){
 	$guessList.html(guessHtml);
 	$count.html(count);
@@ -148,7 +153,9 @@ function render(){
 
 function winner(){
 	userFeedback = 'You Won. Click new game to play again';
+  $feedback.fadeIn(50).fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50).fadeOut(50).fadeIn(50);
 	$form.find('input[type=submit]').css('opacity','0');
+  $form.hide();
 }
   	
 //generate secret number
@@ -164,6 +171,10 @@ function resetVariables(){
 	userGuess = '';
 	userFeedback = 'Make your Guess!';
 }
+
+// init 
+$(document).ready(pageLoad);
+
   	
   	
 

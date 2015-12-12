@@ -262,11 +262,11 @@ input.button {
 input.button:hover {
 	background: #e64c65;
 	color: #fff;
-	-webkit-transition: background 1s ease-in-out;
-	-moz-transition: background 1s ease-in-out;
-	-ms-transition: background 1s ease-in-out;
-	-o-transition: background 1s ease-in-out;
-	transition: background 1s ease-in-out;
+	-webkit-transition: background 0.2s ease-in-out;
+	-moz-transition: background 0.2s ease-in-out;
+	-ms-transition: background 0.2s ease-in-out;
+	-o-transition: background 0.2s ease-in-out;
+	transition: background 0.2s ease-in-out;
 	cursor: pointer;
 }
 
@@ -308,6 +308,7 @@ ul.guessBox {
 	color: #fff;
 	overflow: auto;
 }
+
 ul.guessBox li {
 	display: inline;
 	background-color: #1a4e95;
@@ -318,4 +319,10 @@ ul.guessBox li {
 	width: 95%;
 	margin: 0.2em;
 	color: #fff;
+	-webkit-column-gap: 15px;
+  -moz-column-gap: 15px;
+  column-gap: 15px;
+  -webkit-column-count: 3;
+  -moz-column-count: 3; 
+  column-count: 3;
 }
